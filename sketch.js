@@ -1,14 +1,6 @@
 var currentLevel = 0;
 var maxLevel = 1;
 
-function nextLevel() {
-    currentLevel++;
-        if (currentLevel > maxLevel) {
-            currentLevel = 0;
-        }
-        setupLevel();
-}
-
 class menuButton {
     constructor(x, y) {
         this.x = x;
@@ -31,8 +23,11 @@ class menuButton {
         this.clicked = function () {
             var d = dist(mouseX, mouseY, this.x, this.y);
             if (d < this.diameter / 2) {
-                nextLevel();
-                //this.col = color(random(255), random(255), random(255));
+                currentLevel++;
+                if (currentLevel > maxLevel) {
+                    currentLevel = 0;
+                }
+                setupLevel();
             }
         }
 
@@ -77,6 +72,9 @@ function drawLevel() {
     switch(currentLevel) {
         case 0:
             background(0);
+            textSize(75);
+            textAlign(CENTER);
+            text('𝘾𝙝𝙤𝙤𝙨𝙚 𝙒𝙞𝙨𝙚𝙡𝙮', width/2, height*.33);
             nextLevel.display();
             nextLevel.hover();
             break;
