@@ -1,4 +1,5 @@
 var currentLevel = 0;
+var maxLevel = 1;
 
 function setup () {
     createCanvas(600, 600);
@@ -33,7 +34,7 @@ function drawLevel() {
 
 function mouseClicked() {
     currentLevel++;
-    if (currentLevel > 1) {
+    if (currentLevel > maxLevel) {
         currentLevel = 0;
     }
     setupLevel();
