@@ -51,11 +51,18 @@ class square {
         this.x = x;
         this.y = y;
         this.w = w;
-    }
 
-    display() {
-        fill(255, 100, 76);
-        rect(this.x, this.y, this.w, this.w);
+        this.display = function () {
+            noStroke();
+            rectMode(CORNER);
+            rect(x,y,w)
+        }
+
+        this.clicked = function () {
+            if (mouseX > x && mouseX < x+w && mouseY > y && mouseY < y+w) {
+                this.w+=100
+            }
+        }
     }
 }
 
@@ -81,6 +88,7 @@ function setupLevel() {
         case 0:
             background(0);
             menuPlay = new menuButton(width/2, height*0.75);
+            //testSquare = new square(300,300,100);
             break;
         case 1:
             background(0);
@@ -98,6 +106,7 @@ function drawLevel() {
             text('𝘾𝙝𝙤𝙤𝙨𝙚 𝙒𝙞𝙨𝙚𝙡𝙮', width/2, height*.33);
             menuPlay.display();
             menuPlay.hover();
+            //testSquare.display();
             break;
         case 1:
             background(100);
@@ -116,6 +125,7 @@ function mousePressed() {
             if (menuPlay.clicked()) {
                 nextLevel();
             }
+            //testSquare.clicked();
             break;
         case 1:
             if (true) {
