@@ -10,3 +10,6 @@ This project teaches society about themselves and governance. Players begin by c
 
 ## Why have users generate their own data?
 Half of this game consists of players completing simple tasks. **WIP**
+
+# ...
+Add users data to a larger pool, since it is about something less heated/biased they will be more inclined to prefer the voting/ranking system that feels the most fair/equally representative, rather than what will benefit what they believe in the most
