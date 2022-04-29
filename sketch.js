@@ -1,6 +1,9 @@
 var currentLevel = 0;
 var maxLevel = 1;
 
+let lvl1SquareX = [150, 300, 450]
+let lvl1SquareY = [150, 300, 450]
+
 class menuButton {
     constructor(x, y) {
         this.x = x;
@@ -23,11 +26,7 @@ class menuButton {
         this.clicked = function () {
             var d = dist(mouseX, mouseY, this.x, this.y);
             if (d < this.diameter / 2) {
-                currentLevel++;
-                if (currentLevel > maxLevel) {
-                    currentLevel = 0;
-                }
-                setupLevel();
+                return true;
             }
         }
 
@@ -47,6 +46,27 @@ class menuButton {
     }
 }
 
+class square {
+    constructor(x, y, w) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+    }
+
+    display() {
+        fill(255, 100, 76);
+        rect(this.x, this.y, this.w, this.w);
+    }
+}
+
+function nextLevel() {
+    currentLevel++;
+    if (currentLevel > maxLevel) {
+        currentLevel = 0;
+    }
+    setupLevel();
+}
+
 function setup () {
     createCanvas(600, 600);
     setupLevel();
@@ -60,10 +80,11 @@ function setupLevel() {
     switch(currentLevel) {
         case 0:
             background(0);
-            nextLevel = new menuButton(width/2, height*0.75);
+            menuPlay = new menuButton(width/2, height*0.75);
             break;
         case 1:
-            background(255, 0, 0);
+            background(0);
+            rectMode(CENTER);
             break;
     }
 }
@@ -75,11 +96,16 @@ function drawLevel() {
             textSize(75);
             textAlign(CENTER);
             text('𝘾𝙝𝙤𝙤𝙨𝙚 𝙒𝙞𝙨𝙚𝙡𝙮', width/2, height*.33);
-            nextLevel.display();
-            nextLevel.hover();
+            menuPlay.display();
+            menuPlay.hover();
             break;
         case 1:
-            rect(mouseX, mouseY, 10);
+            background(100);
+            for(let i = 0; i < 3; i++) {
+                for(let j = 0; j < 3; j++) {
+                    rect(lvl1SquareX[i], lvl1SquareY[j], 120)
+                }
+            }
             break;
     }
 }
@@ -87,7 +113,14 @@ function drawLevel() {
 function mousePressed() {
     switch(currentLevel) {
         case 0:
-            nextLevel.clicked();
+            if (menuPlay.clicked()) {
+                nextLevel();
+            }
+            break;
+        case 1:
+            if (true) {
+                nextLevel();
+            }
             break;
     }
 }
