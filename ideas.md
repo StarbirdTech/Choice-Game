@@ -2,7 +2,7 @@
 
 *   pick random square from a grid of nine
 *   slide a slider
-*   orginize 20 colored circles into groups of 4
+*   organize 20 colored circles into groups of 4
 *   start and stop a timer
 *   "press this button" button, and you have 5 seconds to press the button
 *   press a random key on your keyboard
@@ -14,5 +14,4 @@
 
 # More ideas
 
-*   Make some of the data meaninful abstraction of real data
-*   
+*   Make some of the data meaningful abstraction of real data
