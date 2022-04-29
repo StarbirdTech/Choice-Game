@@ -17,14 +17,3 @@ function draw(){
         }
     }
 }
-
-class square{
-  constructor(i, j){
-    this.i = i
-    this.j = j
-    
-    this.draw = function(){
-      rect(x[this.i], y[j], 120)
-    }
-  }
-}
