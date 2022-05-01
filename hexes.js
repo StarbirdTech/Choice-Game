@@ -11,9 +11,9 @@ function setup()
   input = createInput();
   input.position(20, 20);
 
-  button1 = createButton('Red');
-  button1.position(input.x + input.width + 7, 20);
-  button1.mousePressed(change_color(255, 0, 0));
+  button = createButton('Red');
+  button.position(input.x + input.width + 7, 20);
+  button.mousePressed(change_color(255, 0, 0));
 
   createCanvas(windowWidth, windowHeight);
   background(25);
