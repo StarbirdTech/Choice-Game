@@ -1,8 +1,13 @@
 var currentLevel = 0;
 var maxLevel = 1;
 
+/*
 let lvl1SquareX = [150, 300, 450]
 let lvl1SquareY = [150, 300, 450]
+*/
+
+var lvl1squareSize = 200;
+var lvl1squaresClicked = 0;
 
 class menuButton {
     constructor(x, y) {
@@ -45,7 +50,7 @@ class menuButton {
         }
     }
 }
-
+/*
 class square {
     constructor(x, y, w) {
         this.x = x;
@@ -65,7 +70,7 @@ class square {
         }
     }
 }
-
+*/
 function nextLevel() {
     currentLevel++;
     if (currentLevel > maxLevel) {
@@ -91,8 +96,18 @@ function setupLevel() {
             //testSquare = new square(300,300,100);
             break;
         case 1:
+            //background(0);
+            //rectMode(CENTER);
             background(0);
-            rectMode(CENTER);
+            lvl1squaresClicked = 0;
+            stroke(0);
+            strokeWeight(10);
+            fill(100);
+            for (let squareY = 0; squareY <= height-lvl1squareSize; squareY += lvl1squareSize) {
+                for (let squareX = 0; squareX <= width-lvl1squareSize; squareX += lvl1squareSize) {
+                rect(squareX, squareY, lvl1squareSize, lvl1squareSize, 10);
+                }
+            }
             break;
     }
 }
@@ -109,12 +124,14 @@ function drawLevel() {
             //testSquare.display();
             break;
         case 1:
+            /*
             background(100);
             for(let i = 0; i < 3; i++) {
                 for(let j = 0; j < 3; j++) {
                     rect(lvl1SquareX[i], lvl1SquareY[j], 120)
                 }
             }
+            */
             break;
     }
 }
@@ -128,7 +145,13 @@ function mousePressed() {
             //testSquare.clicked();
             break;
         case 1:
-            if (true) {
+            column = floor(mouseX/lvl1squareSize)
+            row = floor(mouseY/lvl1squareSize)
+            fill(200);
+            rect(column*lvl1squareSize, row*lvl1squareSize, lvl1squareSize, lvl1squareSize, 10)
+            lvl1squaresClicked++; // FIXME: Check if new square is clicked
+            fill(0);
+            if (lvl1squaresClicked >= 9) {
                 nextLevel();
             }
             break;
