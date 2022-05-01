@@ -1,19 +1,26 @@
-let x = [150, 300, 450]
-let y = [150, 300, 450]
+var squareSize = 200;
+var G = 600;
 
-let squares = []
-
-function setup(){
-  createCanvas(600,600);
-  rectMode(CENTER)
-  squares.push(new square(150, 150, 120))
+function setup() {
+  createCanvas(G, G);
+  background(100);
+  
+  strokeWeight(10)
+  fill(100);
+  for (let circleY = 0; circleY <= G-squareSize; circleY += squareSize) {
+    for (let circleX = 0; circleX <= G-squareSize; circleX += squareSize) {
+      rect(circleX, circleY, squareSize, squareSize);
+    }
+  }
 }
 
-function draw(){
-    background(100);
-    for(let i = 0; i < 3; i++){
-        for(let j = 0; j < 3; j++){
-            rect(x[i], y[j], 120)
-        }
-    }
+function draw() {  
+}
+
+function mousePressed() {
+  column = floor(mouseX/squareSize)
+  row = floor(mouseY/squareSize)
+  fill(200);
+  rect(column*squareSize, row*squareSize, squareSize, squareSize)
+
 }
