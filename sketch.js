@@ -1,5 +1,5 @@
 var currentLevel = 0;
-var maxLevel = 1;
+var maxLevel = 2;
 
 /*
 let lvl1SquareX = [150, 300, 450]
@@ -8,17 +8,10 @@ let lvl1SquareY = [150, 300, 450]
 
 var lvl1squareSize = 200;
 var lvl1squaresClicked = 0;
-var lvl1squares = [
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-];
+var lvl1squares = [false, false, false, false, false, false, false, false, false];
+
+let lvl2x = 120;
+let lvl2sliderNumber = 0
 
 class menuButton {
   constructor(x, y) {
@@ -67,7 +60,7 @@ class menuButton {
     };
   }
 }
-/*
+
 class square {
     constructor(x, y, w) {
         this.x = x;
@@ -76,18 +69,25 @@ class square {
 
         this.display = function () {
             noStroke();
-            rectMode(CORNER);
+            rectMode(CENTER);
             rect(x,y,w)
-        }
-
-        this.clicked = function () {
-            if (mouseX > x && mouseX < x+w && mouseY > y && mouseY < y+w) {
-                this.w+=100
+            /*
+            let squareIndex = floor(mouseX/lvl1squareSize) + floor(mouseY/lvl1squareSize)*3;
+            column = floor(mouseX/lvl1squareSize)
+            row = floor(mouseY/lvl1squareSize)
+            rect(column*lvl1squareSize, row*lvl1squareSize, lvl1squareSize, lvl1squareSize, 10)
+            if (lvl1squares[squareIndex] == false) {
+                lvl1squares[squareIndex] = true;
+                lvl1squaresClicked++;
             }
+            if (lvl1squaresClicked >= 9) {
+                nextLevel();
+            }
+            */
         }
     }
 }
-*/
+
 function nextLevel() {
   currentLevel++;
   if (currentLevel > maxLevel) {
@@ -110,11 +110,8 @@ function setupLevel() {
     case 0:
       background(0);
       menuPlay = new menuButton(width / 2, height * 0.75);
-      //testSquare = new square(300,300,100);
       break;
     case 1:
-      //background(0);
-      //rectMode(CENTER);
       background(0);
       lvl1squaresClicked = 0;
       stroke(0);
@@ -134,6 +131,9 @@ function setupLevel() {
         }
       }
       break;
+    case 2:
+        ellipseMode(CENTER);
+        break;
   }
 }
 
@@ -148,15 +148,20 @@ function drawLevel() {
       menuPlay.hover();
       //testSquare.display();
       break;
-    case 1:
-      /*
-            background(100);
-            for(let i = 0; i < 3; i++) {
-                for(let j = 0; j < 3; j++) {
-                    rect(lvl1SquareX[i], lvl1SquareY[j], 120)
-                }
-            }
-            */
+    case 2:
+        background(100);
+        fill(200)
+        textSize(200)
+        //text(sliderNumber , 50, 150);
+        strokeWeight(30);
+        line(120, 300, 470, 300);
+        fill(100);
+        circle(lvl2x, 300, 50);
+
+        if (mouseIsPressed) {
+            lvl2x = clamp(mouseX, 120, 470);
+        }
+        sliderNumber = Math.round(map(lvl2x-120, 0, 350, 0, 100))
       break;
   }
 }
@@ -167,22 +172,8 @@ function mousePressed() {
       if (menuPlay.clicked()) {
         nextLevel();
       }
-      //testSquare.clicked();
       break;
     case 1:
-      /*
-            let squareIndex = floor(mouseX/lvl1squareSize) + floor(mouseY/lvl1squareSize)*3;
-            column = floor(mouseX/lvl1squareSize)
-            row = floor(mouseY/lvl1squareSize)
-            rect(column*lvl1squareSize, row*lvl1squareSize, lvl1squareSize, lvl1squareSize, 10)
-            if (lvl1squares[squareIndex] == false) {
-                lvl1squares[squareIndex] = true;
-                lvl1squaresClicked++;
-            }
-            if (lvl1squaresClicked >= 9) {
-                nextLevel();
-            }
-            */
       nextLevel();
       break;
   }
@@ -197,3 +188,7 @@ function keyPressed() {
     setupLevel();
   }
 }
+
+function clamp(number, min, max) {
+    return Math.max(min, Math.min(number, max));
+  }
