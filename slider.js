@@ -1,5 +1,5 @@
-let x = 300;
-let number = 0
+let x = 120;
+sliderNumber = 0
 
 function setup() {
   createCanvas(600, 600);
@@ -8,17 +8,18 @@ function setup() {
 
 function draw() {
   background(100);
-  text(number, 20, 20)
+  fill(200)
+  textSize(200)
+  text(sliderNumber , 50, 150);
   strokeWeight(30);
   line(120, 300, 470, 300);
-  fill(100)
+  fill(100);
   circle(x, 300, 50);
 
   if (mouseIsPressed) {
-    x = clamp(mouseX, 120, 470)
+    x = clamp(mouseX, 120, 470);
   }
-  
-  number = x-120
+  sliderNumber = Math.round(map(x-120, 0, 350, 0, 100))
 }
 
 function clamp(number, min, max) {
