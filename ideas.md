@@ -16,3 +16,4 @@
 # More ideas
 
 *   Make some of the data meaningful abstraction of real data
+*   Have computer write down same number of plays as human plays to compare computer to human answers
