@@ -9,11 +9,12 @@ let lvl1SquareY = [150, 300, 450]
 var lvl1squareSize = 200;
 var lvl1squaresClicked = 0;
 var lvl1squares = [false, false, false, false, false, false, false, false, false];
+var lvl1gridSquares = [];
 
 let lvl2x = 120;
 let lvl2sliderNumber = 0
 
-class menuButton {
+class playButton {
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -52,12 +53,11 @@ class menuButton {
         if (this.diameter < 200) {
           this.diameter += 5;
         }
-      } else {
-        if (this.diameter > 150) {
-          this.diameter -= 5;
-        }
-      }
-    };
+      } 
+      else if (this.diameter > 150) {
+        this.diameter -= 5;
+      } 
+    }
   }
 }
 
@@ -66,24 +66,21 @@ class square {
         this.x = x;
         this.y = y;
         this.w = w;
+        this.fill = 100;
 
         this.display = function () {
-            noStroke();
-            rectMode(CENTER);
-            rect(x,y,w)
-            /*
-            let squareIndex = floor(mouseX/lvl1squareSize) + floor(mouseY/lvl1squareSize)*3;
-            column = floor(mouseX/lvl1squareSize)
-            row = floor(mouseY/lvl1squareSize)
-            rect(column*lvl1squareSize, row*lvl1squareSize, lvl1squareSize, lvl1squareSize, 10)
-            if (lvl1squares[squareIndex] == false) {
-                lvl1squares[squareIndex] = true;
-                lvl1squaresClicked++;
-            }
-            if (lvl1squaresClicked >= 9) {
-                nextLevel();
-            }
-            */
+          stroke(0);
+          strokeWeight(10);
+          fill(this.fill);
+          rectMode(CORNER);
+          rect(x,y,w,w,10);
+        }
+        this.clicked = function () {
+          var d = dist(mouseX, mouseY, this.x, this.y);
+          if (d < this.w / 2) {
+            this.fill = 200;
+            return true;
+          }
         }
     }
 }
@@ -109,25 +106,19 @@ function setupLevel() {
   switch (currentLevel) {
     case 0:
       background(0);
-      menuPlay = new menuButton(width / 2, height * 0.75);
+      menuPlay = new playButton(width / 2, height * 0.75);
       break;
     case 1:
-      background(0);
+      //reset variables
       lvl1squaresClicked = 0;
-      stroke(0);
-      strokeWeight(10);
-      fill(100);
-      for (
-        let squareY = 0;
-        squareY <= height - lvl1squareSize;
-        squareY += lvl1squareSize
-      ) {
-        for (
-          let squareX = 0;
-          squareX <= width - lvl1squareSize;
-          squareX += lvl1squareSize
-        ) {
-          rect(squareX, squareY, lvl1squareSize, lvl1squareSize, 10);
+      for (var i = 0; i < lvl1squares.length; i++) {
+        lvl1squares[i] = false;
+      }
+
+      //create grid
+      for (let squareY = 0; squareY <= height - lvl1squareSize; squareY += lvl1squareSize) {
+        for (let squareX = 0; squareX <= width - lvl1squareSize; squareX += lvl1squareSize) {
+          lvl1gridSquares.push(new square(squareX, squareY, lvl1squareSize)) // will not work if setup is called multiple times
         }
       }
       break;
@@ -146,13 +137,17 @@ function drawLevel() {
       text("𝘾𝙝𝙤𝙤𝙨𝙚 𝙒𝙞𝙨𝙚𝙡𝙮", width / 2, height * 0.33);
       menuPlay.display();
       menuPlay.hover();
-      //testSquare.display();
+      break;
+    case 1:
+      background(0);
+      //draw grid
+      for (let i = 0; i < lvl1gridSquares.length; i++) {
+        lvl1gridSquares[i].display();
+      }
       break;
     case 2:
         background(100);
-        fill(200)
-        textSize(200)
-        //text(sliderNumber , 50, 150);
+        fill(200);
         strokeWeight(30);
         line(120, 300, 470, 300);
         fill(100);
@@ -174,10 +169,25 @@ function mousePressed() {
       }
       break;
     case 1:
-      nextLevel();
+      for (let i = 0; i < lvl1gridSquares.length; i++) {
+        if (lvl1gridSquares[i].clicked()) {
+          nextLevel();
+        }
+      }
       break;
   }
 }
+
+function mouseReleased() {
+  switch (currentLevel) {
+    case 1:
+      if (lvl1squaresClicked > 0) {
+        nextLevel();
+      }
+      break;
+  }
+}
+
 
 function keyPressed() {
   if (keyCode === ENTER) {
