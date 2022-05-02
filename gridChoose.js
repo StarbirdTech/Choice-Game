@@ -14,9 +14,6 @@ function setup() {
   }
 }
 
-function draw() {  
-}
-
 function mousePressed() {
   column = floor(mouseX/squareSize)
   row = floor(mouseY/squareSize)
