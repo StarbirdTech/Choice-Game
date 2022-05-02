@@ -8,6 +8,7 @@ let lvl1SquareY = [150, 300, 450]
 
 var lvl1squareSize = 200;
 var lvl1squaresClicked = 0;
+var lvl1squares = [false,false,false,false,false,false,false,false,false];
 
 class menuButton {
     constructor(x, y) {
@@ -145,15 +146,20 @@ function mousePressed() {
             //testSquare.clicked();
             break;
         case 1:
+            /*
+            let squareIndex = floor(mouseX/lvl1squareSize) + floor(mouseY/lvl1squareSize)*3;
             column = floor(mouseX/lvl1squareSize)
             row = floor(mouseY/lvl1squareSize)
-            fill(200);
             rect(column*lvl1squareSize, row*lvl1squareSize, lvl1squareSize, lvl1squareSize, 10)
-            lvl1squaresClicked++; // FIXME: Check if new square is clicked
-            fill(0);
+            if (lvl1squares[squareIndex] == false) {
+                lvl1squares[squareIndex] = true;
+                lvl1squaresClicked++;
+            }
             if (lvl1squaresClicked >= 9) {
                 nextLevel();
             }
+            */
+            nextLevel();
             break;
     }
 }
