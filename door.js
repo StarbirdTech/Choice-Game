@@ -1,7 +1,7 @@
 let x = [0, 0];
 let output = [0, 0];
 let choice = 1;
-let message = 'Chose A Door'
+let message = 'Choose A Door'
 
 function setup() {
   createCanvas(600, 600);
@@ -9,7 +9,8 @@ function setup() {
   background(100);
   textSize(60);
   fill(0);
-  text(message, 120, 100);
+  textAlign(CENTER)
+  text(message, width/2, 100);
   for (let i = 0; i < 3; i++) {
     x[0] = (i * width) / 3 + 100;
     x[1] = (i * width) / 3 + 130;
@@ -62,5 +63,5 @@ function mousePressed() {
   //text(output[0], 300, 500);
   //text(output[1], 300, 550);
   //text(choice, 100, 500)
-  text(message, 120, 100);
+  text(message, width/2, 100);
 }
