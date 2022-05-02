@@ -11,6 +11,7 @@
 *   pick a color
 *   pick a shape
 *   put different colored hats on people with colored shirts
+*   make choice, then it asks "are you sure?", see how many people switch
 
 # More ideas
 
