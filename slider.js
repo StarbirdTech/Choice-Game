@@ -10,7 +10,6 @@ function draw() {
   background(100);
   fill(200)
   textSize(200)
-  text(sliderNumber , 50, 150);
   strokeWeight(30);
   line(120, 300, 470, 300);
   fill(100);
