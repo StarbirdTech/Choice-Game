@@ -75,6 +75,29 @@ class level1 {
   }
 }
 
+// level 2
+class level2 {
+  constructor() {
+    this.setup = function () {
+      ellipseMode(CENTER);
+    }
+
+    this.draw = function () {
+      background(100);
+      fill(200);
+      strokeWeight(30);
+      line(120, 300, 470, 300);
+      fill(100);
+      circle(lvl2x, 300, 50);
+
+      if (mouseIsPressed) {
+          lvl2x = clamp(mouseX, 120, 470);
+      }
+      sliderNumber = Math.round(map(lvl2x-120, 0, 350, 0, 100))
+    }
+  }
+}
+
 class playButton {
   constructor(x, y) {
     this.x = x;
@@ -164,42 +187,6 @@ function setup() {
 
 function draw() {
   drawLevel();
-}
-
-function setupLevel() {
-  switch (currentLevel) {
-    case 2:
-        ellipseMode(CENTER);
-        break;
-  }
-}
-
-function drawLevel() {
-  switch (currentLevel) {
-    case 2:
-        background(100);
-        fill(200);
-        strokeWeight(30);
-        line(120, 300, 470, 300);
-        fill(100);
-        circle(lvl2x, 300, 50);
-
-        if (mouseIsPressed) {
-            lvl2x = clamp(mouseX, 120, 470);
-        }
-        sliderNumber = Math.round(map(lvl2x-120, 0, 350, 0, 100))
-      break;
-  }
-}
-
-function mouseReleased() {
-  switch (currentLevel) {
-    case 1:
-      if (lvl1squaresClicked > 0) {
-        nextLevel();
-      }
-      break;
-  }
 }
 
 // temp
