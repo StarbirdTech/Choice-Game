@@ -35,7 +35,6 @@ function setup() {
       if(difference >= 0){
         buttonHight = lerp(50, 30, difference)
         difference -= 0.2
-        print('hehehehehe')
       }
     }
   }
