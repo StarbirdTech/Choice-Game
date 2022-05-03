@@ -1,5 +1,5 @@
-let x = 120;
-sliderNumber = 0
+var x = 120;
+var sliderNumber = 0
 
 function setup() {
   createCanvas(600, 600);
