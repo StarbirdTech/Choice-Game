@@ -1,8 +1,3 @@
-var currentLevel = 0;
-var maxLevel = 2;
-
-var level = [];
-
 var sm; // scene manager
 
 function setup()
@@ -12,7 +7,7 @@ function setup()
     sm = new SceneManager();
 
     sm.addScene ( menu );
-    sm.addScene ( level1 );
+    sm.addScene ( level3 );
     sm.addScene ( level2 );
 
     sm.showNextScene();
@@ -23,31 +18,11 @@ function draw()
     sm.draw();
 }
 
-function mousePressed()
-{
-    sm.handleEvent("mousePressed");
-}
+function mousePressed() {sm.handleEvent("mousePressed")}
+function mouseReleased(){sm.handleEvent("mouseReleased")}
+function keyPressed(){sm.handleEvent("keyPressed")}
 
-function keyPressed()
-{
-    // You can optionaly handle the key press at global level...
-    switch(key)
-    {
-        case '1':
-            sm.showScene( menu );
-            break;
-        case '2':
-            sm.showScene( level1 );
-            break;
-        case '3':
-            sm.showScene( level2 );
-            break;
-    }
-    
-    // ... then dispatch via the SceneManager.
-    sm.handleEvent("keyPressed");
-}
-
+// Play Button
 class playButton {
   constructor(x, y) {
     this.x = x;
@@ -98,90 +73,65 @@ class playButton {
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////
-/////////////////////           Levels           ///////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+//Levels
+function menu() {
+  let menuPlay
 
-// level 0
-function menu () {
-  this.enter = function () {
-    background(0);
-    menuPlay = new playButton(width / 2, height * 0.75);
-  }
-  this.draw = function () {
-    background(0);
+  this.enter = function() {
+    menuPlay = new playButton(width/2, height*.75);
     textSize(75);
     textAlign(CENTER);
+  }
+
+  this.draw = function() {
+    background(0);
     text("𝘾𝙝𝙤𝙤𝙨𝙚 𝙒𝙞𝙨𝙚𝙡𝙮", width / 2, height * 0.33);
     menuPlay.display();
     menuPlay.hover();
   }
 }
 
-class square {
-  constructor() {
-    var x = 0;
-    var y = 0;
-    var w = 100;
-    var color = 100;
-    var square;
-    this.setup = function () {
-      square = uxRect(x, y, w, w, 10);
-      square.uxFill = color;
-      square.uxEvent('click', background(200));
-    };
-  }
-}
+function level1() {
+  var lvl1squareSize = 200;
+  var lvl1squaresClicked = 0;
 
-class squareGrid {
-  constructor(x, y, w, h, col) {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
-    this.col = col;
-    this.grid = [];
-    this.setup = function () {
-      for (var i = 0; i < this.w; i++) {
-        this.grid[i] = [];
-        for (var j = 0; j < this.h; j++) {
-          this.grid[i][j] = new square(i, j);
-        }
+  this.enter = function() {
+    background(0);
+    lvl1squaresClicked = 0;
+    strokeWeight(10);
+    fill(100);
+    for (let squareY = 0; squareY <= height-lvl1squareSize; squareY += lvl1squareSize) {
+      for (let squareX = 0; squareX <= width-lvl1squareSize; squareX += lvl1squareSize) {
+        rect(squareX, squareY, lvl1squareSize, lvl1squareSize, 10);
       }
-    };
+    }
+  }
+
+  this.mousePressed = function() {
+    setTimeout(function() {
+      if (lvl1squaresClicked == 0) {
+        lvl1squaresClicked++;
+        sm.showNextScene();
+      }
+    }, 1000);
   }
 }
 
-// level 1
-function level1 () {
-  var grid
-
-  this.enter  = function () {
-    grid = new square;
-    background(200,0,0);
-    grid.setup();
-  }
-
-  this.draw = function () {
-  }
-}
-
-let test
-
-// level 2
 function level2 () {
   let buttonHight = 50;
   let pressed = false;
+  let difference = 0;
+  let mouseDown = false;
 
-  this.enter = function () {
+  this.enter = function() {
     rectMode(CENTER);
     background(100);
     strokeWeight(5);
     textSize(40);
-    textAlign(CENTER)
+    textAlign(CENTER);
   }
 
-  this.draw = function () {
+  this.draw = function() {
     background(100)
     fill(100)
     stroke(150)
@@ -193,32 +143,53 @@ function level2 () {
     for (let j = 0; j < buttonHight; j++) {
       if(j>=buttonHight-1 | j<=4){stroke(0)} else {stroke(230, 0, 0)}
       ellipse(300, 340-j, 300, 75)
+    }
     text('Do Not Press This button', width/2, 100)
     if(mouseDown){
       if(difference <= 1){
         buttonHight = lerp(50, 30, difference)
         difference += 0.2
-        print('hehehehehe')
       }
     }
     else{
       if(difference >= 0){
         buttonHight = lerp(50, 30, difference)
         difference -= 0.2
-        print('hehehehehe')
       }
     }
   }
+
+  this.mousePressed = function() {
+    mouseDown = true;
+    pressed = true;
+  }
+
+  this.mouseReleased = function() {
+    mouseDown = false;
+    pressed = false;
+  }
 }
 
-////////////////////////////////////////////////////////////////////////////////
-/////////////////////          Utility           ///////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
+function level3() {
+  let gui
+
+  this.enter = function() {
+    background(100);
+    gui = createGui();
+    s = createSlider("Slider", width/8, height/3, width*.75);
+    b = createButton("Skip", 450, 550);
+  }
+
+  this.draw = function() {
+    drawGui();
+
+    if (s.isChanged) {
+      b.label = "Next";
+    }
+    
+  }
+}
 
 function clamp(number, min, max) {
   return Math.max(min, Math.min(number, max));
-}
-
-function nextScene(delay = 0) {
-  setTimeout(sm.showNextScene(), delay);
 }

@@ -22,22 +22,22 @@ function setup() {
       for (let j = 0; j < buttonHight; j++) {
         if(j>=buttonHight-1 | j<=4){stroke(0)} else {stroke(230, 0, 0)}
         ellipse(300, 340-j, 300, 75)
-    }
-    text('Do Not Press This button', width/2, 100)
-    if(mouseDown){
-      if(difference <= 1){
-        buttonHight = lerp(50, 30, difference)
-        difference += 0.2
-        print('hehehehehe')
       }
-    }
-    else{
-      if(difference >= 0){
-        buttonHight = lerp(50, 30, difference)
-        difference -= 0.2
-        print('hehehehehe')
+      text('Do Not Press This button', width/2, 100)
+      if(mouseDown){
+        if(difference <= 1){
+          buttonHight = lerp(50, 30, difference)
+          difference += 0.2
+          print('hehehehehe')
+        }
       }
-    }
+      else{
+        if(difference >= 0){
+          buttonHight = lerp(50, 30, difference)
+          difference -= 0.2
+          print('hehehehehe')
+        }
+      }
   }
 
   mouseDown = false;
