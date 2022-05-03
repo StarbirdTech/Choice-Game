@@ -1,9 +1,20 @@
+let gui;
+
 function setup() {
   createCanvas(600, 600);
   background(100);
   strokeWeight(5);
   textSize(40);
   textAlign(CENTER)
+  rectMode(CENTER);
+
+    gui = createGui();
+//label,x,y,w,h,min,max
+    r = createSlider('red',85, 460, 100, 32.5, 0, 255);
+    g = createSlider('green',250, 460, 100, 32.5, 0, 255);
+    b = createSlider('blue',415, 460, 100, 32.5, 0, 255);
+
+    /*
   inputr = createSlider(0, 255, 130);
   inputr.position(20, 400,);
 
@@ -11,16 +22,17 @@ function setup() {
   inputg.position(215, 400);
   inputb = createSlider(0, 255, 130);
   inputb.position(410, 400);
+    */
 }
 
 function draw(){
-    background(100)
+    drawGui();
     fill(0)
-    text('R', 105, 455);
+    text('R', 135, 455);
     text('G', 300, 455);
-    text('B', 495, 455);
+    text('B', 465, 455);
 
-    fill(inputr.value(), inputg.value(), inputb.value());
+    fill(r.value, g.value, b.value);
     circle(width/2, height/2-100, 200);
 
 }
