@@ -1,19 +1,32 @@
-var currentLevel = 0;
-var maxLevel = 2;
+var sm; // scene manager
 
-/*
-let lvl1SquareX = [150, 300, 450]
-let lvl1SquareY = [150, 300, 450]
-*/
+function setup()
+{
+    createCanvas(600, 600);
 
-var lvl1squareSize = 200;
-var lvl1squaresClicked = 0;
-var lvl1squares = [false, false, false, false, false, false, false, false, false];
-var lvl1gridSquares = [];
+    sm = new SceneManager();
 
-let lvl2x = 120;
-let lvl2sliderNumber = 0
+    sm.addScene ( menu );
+    sm.addScene ( level1 );
+    sm.addScene ( level2 );
+    sm.addScene ( level3 );
+    sm.addScene ( level4 );
 
+    sm.showNextScene();
+}
+
+function draw()
+{
+    sm.draw();
+}
+
+function mousePressed() {sm.handleEvent("mousePressed")}
+function mouseReleased(){sm.handleEvent("mouseReleased")}
+function keyPressed(){sm.handleEvent("keyPressed")}
+
+/////////////////
+// Play Button //
+/////////////////
 class playButton {
   constructor(x, y) {
     this.x = x;
@@ -50,6 +63,9 @@ class playButton {
     this.hover = function () {
       var d = dist(mouseX, mouseY, this.x, this.y);
       if (d < this.diameter / 2) {
+        if (mouseIsPressed) {
+          sm.showNextScene();
+        }
         if (this.diameter < 200) {
           this.diameter += 5;
         }
@@ -61,144 +77,190 @@ class playButton {
   }
 }
 
-class square {
-    constructor(x, y, w) {
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.fill = 100;
-
-        this.display = function () {
-          stroke(0);
-          strokeWeight(10);
-          fill(this.fill);
-          rectMode(CORNER);
-          rect(x,y,w,w,10);
-        }
-        this.clicked = function () {
-          var d = dist(mouseX, mouseY, this.x, this.y);
-          if (d < this.w / 2) {
-            this.fill = 200;
-            return true;
-          }
-        }
-    }
-}
-
-function nextLevel() {
-  currentLevel++;
-  if (currentLevel > maxLevel) {
-    currentLevel = 0;
-  }
-  setupLevel();
-}
-
-function setup() {
-  createCanvas(600, 600);
-  setupLevel();
-}
-
-function draw() {
-  drawLevel();
-}
-
-function setupLevel() {
-  switch (currentLevel) {
-    case 0:
-      background(0);
-      menuPlay = new playButton(width / 2, height * 0.75);
-      break;
-    case 1:
-      //reset variables
-      lvl1squaresClicked = 0;
-      for (var i = 0; i < lvl1squares.length; i++) {
-        lvl1squares[i] = false;
-      }
-
-      //create grid
-      for (let squareY = 0; squareY <= height - lvl1squareSize; squareY += lvl1squareSize) {
-        for (let squareX = 0; squareX <= width - lvl1squareSize; squareX += lvl1squareSize) {
-          lvl1gridSquares.push(new square(squareX, squareY, lvl1squareSize)) // will not work if setup is called multiple times
-        }
-      }
-      break;
-    case 2:
-        ellipseMode(CENTER);
-        break;
-  }
-}
-
-function drawLevel() {
-  switch (currentLevel) {
-    case 0:
-      background(0);
-      textSize(75);
-      textAlign(CENTER);
-      text("𝘾𝙝𝙤𝙤𝙨𝙚 𝙒𝙞𝙨𝙚𝙡𝙮", width / 2, height * 0.33);
-      menuPlay.display();
-      menuPlay.hover();
-      break;
-    case 1:
-      background(0);
-      //draw grid
-      for (let i = 0; i < lvl1gridSquares.length; i++) {
-        lvl1gridSquares[i].display();
-      }
-      break;
-    case 2:
-        background(100);
-        fill(200);
-        strokeWeight(30);
-        line(120, 300, 470, 300);
-        fill(100);
-        circle(lvl2x, 300, 50);
-
-        if (mouseIsPressed) {
-            lvl2x = clamp(mouseX, 120, 470);
-        }
-        sliderNumber = Math.round(map(lvl2x-120, 0, 350, 0, 100))
-      break;
-  }
-}
-
-function mousePressed() {
-  switch (currentLevel) {
-    case 0:
-      if (menuPlay.clicked()) {
-        nextLevel();
-      }
-      break;
-    case 1:
-      for (let i = 0; i < lvl1gridSquares.length; i++) {
-        if (lvl1gridSquares[i].clicked()) {
-          nextLevel();
-        }
-      }
-      break;
-  }
-}
-
-function mouseReleased() {
-  switch (currentLevel) {
-    case 1:
-      if (lvl1squaresClicked > 0) {
-        nextLevel();
-      }
-      break;
-  }
-}
-
-
-function keyPressed() {
-  if (keyCode === ENTER) {
-    currentLevel++;
-    if (currentLevel > maxLevel) {
-      currentLevel = 0;
-    }
-    setupLevel();
-  }
-}
+////////////
+//  Math ///
+////////////
 
 function clamp(number, min, max) {
-    return Math.max(min, Math.min(number, max));
+  return Math.max(min, Math.min(number, max));
+}
+
+////////////
+// Levels //
+////////////
+function menu() {
+  let menuPlay
+
+  this.enter = function() {
+    menuPlay = new playButton(width/2, height*.75);
+    textSize(75);
+    textAlign(CENTER);
   }
+
+  this.draw = function() {
+    background(0);
+    text("𝘾𝙝𝙤𝙤𝙨𝙚 𝙒𝙞𝙨𝙚𝙡𝙮", width / 2, height * 0.33);
+    menuPlay.display();
+    menuPlay.hover();
+  }
+}
+
+function level1() {
+  var lvl1squareSize = 200;
+  var lvl1squaresClicked = 0;
+
+  this.enter = function() {
+    background(0);
+    lvl1squaresClicked = 0;
+    strokeWeight(10);
+    fill(100);
+    for (let squareY = 0; squareY <= height-lvl1squareSize; squareY += lvl1squareSize) {
+      for (let squareX = 0; squareX <= width-lvl1squareSize; squareX += lvl1squareSize) {
+        rect(squareX, squareY, lvl1squareSize, lvl1squareSize, 10);
+      }
+    }
+  }
+
+  this.mousePressed = function() {
+    setTimeout(function() {
+      if (lvl1squaresClicked == 0) {
+        lvl1squaresClicked++;
+        sm.showNextScene();
+      }
+    }, 1000);
+  }
+}
+
+function level2 () {
+  let buttonHight = 50;
+  let pressed = false;
+  let difference = 0;
+  let mouseDown = false;
+  let clicked = false;
+
+  this.enter = function() {
+    rectMode(CENTER);
+    background(100);
+    strokeWeight(5);
+    textSize(40);
+    textAlign(CENTER);
+  }
+
+  this.draw = function() {
+    background(100)
+    fill(100)
+    stroke(150)
+    for (let i = 0; i < 50; i++) {
+        if(i>=49 | i<=4){stroke(0)} else {stroke(150)}
+        ellipse(300, 400-i, 400, 100)
+    }
+    fill(255, 0, 0)
+    for (let j = 0; j < buttonHight; j++) {
+      if(j>=buttonHight-1 | j<=4){stroke(0)} else {stroke(230, 0, 0)}
+      ellipse(300, 340-j, 300, 75)
+    }
+    text('Do Not Press This button', width/2, 100)
+    if(mouseDown){
+      if(difference <= 1){
+        buttonHight = lerp(50, 30, difference)
+        difference += 0.2
+        if (clicked == false) {
+          clicked = true;
+          setTimeout(sm.showNextScene(),1000); 
+        }
+      }
+    }
+    else{
+      if(difference >= 0){
+        buttonHight = lerp(50, 30, difference)
+        difference -= 0.2
+      }
+    }
+  }
+
+  this.mousePressed = function() {
+    mouseDown = true;
+    pressed = true;
+  }
+
+  this.mouseReleased = function() {
+    mouseDown = false;
+    pressed = false;
+  }
+}
+
+function level3() {
+  let gui
+
+  this.enter = function() {
+    background(100);
+    gui = createGui();
+    s = createSlider("Slider", width/8, height/3, width*.75);
+    b = createButton("Skip", 450, 550);
+  }
+
+  this.draw = function() {
+    drawGui();
+
+    if (s.isChanged) {
+      b.label = "Next";
+    }
+    
+  }
+}
+
+function level4() {
+  let gui;
+  let r;
+  let g;
+  let b;
+  let h;
+  let w;
+
+  this.enter = function() {
+    background(100);
+    strokeWeight(5);
+    textSize(40);
+    textAlign(CENTER)
+    rectMode(CENTER);
+    h = height/4;
+    w = width/6;
+
+    gui = createGui();
+    //label,x,y,w,h,min,max
+    r = createSliderV("red", width*.25-w/2, height*.75-h/2, w, h, 0, 255);
+    r.min = 0;
+    r.max = 255;
+    g = createSliderV('green', width*.5-w/2, height*.75-h/2, w, h, 0, 255);
+    g.min = 0;
+    g.max = 255;
+    b = createSliderV('blue', width*.75-w/2, height*.75-h/2, w, h, 0, 255);
+    b.min = 0;
+    b.max = 255;
+  }
+
+  this.draw = function() {
+    r.setStyle({
+      fillTrack: color(r.val, 0, 0),
+      fillTrackHover: color(r.val, 0, 0),
+      fillTrackActive: color(r.val, 0, 0),
+    });
+    g.setStyle({
+      fillTrack: color(0, g.val, 0),
+      fillTrackHover: color(0, g.val, 0),
+      fillTrackActive: color(0, g.val, 0),
+    });
+    b.setStyle({
+      fillTrack: color(0, 0, b.val),
+      fillTrackHover: color(0, 0, b.val),
+      fillTrackActive: color(0, 0, b.val),
+    });
+    drawGui();
+    fill(10);
+    text('R', width*.25, r.y-15);
+    text('G', width*.5, g.y-15);
+    text('B', width*.75, b.y-15);
+    fill(r.val, g.val, b.val);
+    circle(width/2, height*.25, height*.33);
+  }
+}
