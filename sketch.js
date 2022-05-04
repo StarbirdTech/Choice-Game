@@ -7,10 +7,11 @@ function setup()
     sm = new SceneManager();
 
     sm.addScene ( menu );
-    sm.addScene ( level4 );
+    sm.addScene ( level1 );
     sm.addScene ( level2 );
     sm.addScene ( level3 );
     sm.addScene ( level4 );
+    sm.addScene ( endScreen );
 
     sm.showNextScene();
 }
@@ -166,7 +167,7 @@ function level2 () {
         difference += 0.2
         if (clicked == false) {
           clicked = true;
-          setTimeout(sm.showNextScene(),1000); 
+          setTimeout(sm.showNextScene(),1000);
         }
       }
     }
@@ -202,10 +203,13 @@ function level3() {
   this.draw = function() {
     drawGui();
 
+    if(b.isPressed && b.label == "Next") {
+      setTimeout(sm.showNextScene(),1000);
+    }
+
     if (s.isChanged) {
       b.label = "Next";
     }
-    
   }
 }
 
@@ -216,6 +220,7 @@ function level4() {
   let b;
   let h;
   let w;
+  let button;
 
   this.enter = function() {
     createCanvas(600, 600);
@@ -228,6 +233,7 @@ function level4() {
     w = width/6;
 
     gui = createGui();
+    button = createButton("Chose Color", 450, 550);
     r = createSliderV("red", width*.25-w/2, height*.75-h/2, w, h, 0, 255);
     r.min = 0;
     r.max = 255;
@@ -256,6 +262,9 @@ function level4() {
       fillTrackActive: color(0, 0, b.val),
     });
     drawGui();
+    if(button.isPressed) {
+      sm.showNextScene();
+    }
     noStroke();
     fill(10);
     text('R', width*.25, r.y-15);
@@ -264,5 +273,14 @@ function level4() {
     stroke(0);
     fill(r.val, g.val, b.val);
     circle(width/2, height*.25, height*.33);
+  }
+}
+
+function endScreen() {
+  this.enter = function() {
+    background(0);
+    textSize(75);
+    textAlign(CENTER);
+    text("End Screen", width / 2, height/2);
   }
 }
