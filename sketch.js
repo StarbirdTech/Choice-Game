@@ -7,7 +7,7 @@ function setup()
     sm = new SceneManager();
 
     sm.addScene ( menu );
-    sm.addScene ( level1 );
+    sm.addScene ( level4 );
     sm.addScene ( level2 );
     sm.addScene ( level3 );
     sm.addScene ( level4 );
@@ -218,16 +218,16 @@ function level4() {
   let w;
 
   this.enter = function() {
+    createCanvas(600, 600);
     background(100);
     strokeWeight(5);
-    textSize(40);
-    textAlign(CENTER)
-    rectMode(CENTER);
+    textSize(30);
+    textAlign(CENTER);
+
     h = height/4;
     w = width/6;
 
     gui = createGui();
-    //label,x,y,w,h,min,max
     r = createSliderV("red", width*.25-w/2, height*.75-h/2, w, h, 0, 255);
     r.min = 0;
     r.max = 255;
@@ -256,10 +256,12 @@ function level4() {
       fillTrackActive: color(0, 0, b.val),
     });
     drawGui();
+    noStroke();
     fill(10);
     text('R', width*.25, r.y-15);
     text('G', width*.5, g.y-15);
     text('B', width*.75, b.y-15);
+    stroke(0);
     fill(r.val, g.val, b.val);
     circle(width/2, height*.25, height*.33);
   }
