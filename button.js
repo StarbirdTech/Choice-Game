@@ -13,6 +13,7 @@ function setup() {
   function draw(){
       background(100)
       fill(100)
+      //text(pressed, width/2, 150)
       stroke(150)
       for (let i = 0; i < 50; i++) {
           if(i>=49 | i<=4){stroke(0)} else {stroke(150)}
@@ -27,15 +28,13 @@ function setup() {
       if(mouseDown){
         if(difference <= 1){
           buttonHight = lerp(50, 30, difference)
-          difference += 0.2
-          print('hehehehehe')
+          difference += 0.25
         }
       }
       else{
         if(difference >= 0){
           buttonHight = lerp(50, 30, difference)
-          difference -= 0.2
-          print('hehehehehe')
+          difference -= 0.25
         }
       }
   }
@@ -43,9 +42,10 @@ function setup() {
   mouseDown = false;
   
   function mousePressed(){
-    mouseDown = true;
-    //buttonHight -= 20
-    pressed = true;
+    if(mouseY<=450){
+      mouseDown = true;
+      pressed = true;
+    }
   }
 
   function mouseReleased(){
