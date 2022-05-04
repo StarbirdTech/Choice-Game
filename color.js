@@ -4,14 +4,17 @@ let g;
 let b;
 let h;
 let w;
+let r1 = [255,255,255,0  ,0  ,75 ]
+let g1 = [0  ,127,255,255,0  ,0  ]
+let b1 = [0  ,0  ,0  ,0  ,255,130]
+
+let shape;
+
 
 function setup() {
   createCanvas(600, 600);
   background(100);
   strokeWeight(5);
-  textSize(40);
-  textAlign(CENTER)
-  rectMode(CENTER);
 
   h = height/4;
   w = width/6;
@@ -30,6 +33,7 @@ function setup() {
 }
 
 function draw(){
+  /*
   r.setStyle({
     fillTrack: color(r.val, 0, 0),
     fillTrackHover: color(r.val, 0, 0),
@@ -51,5 +55,20 @@ function draw(){
   text('G', width*.5, g.y-15);
   text('B', width*.75, b.y-15);
   fill(r.val, g.val, b.val);
-  circle(width/2, height*.25, height*.33);
+  circle(width/2, height*.25, height*.33);*/
+  let index = -1;
+    for(let i = 0; i < 2; i++){
+        for(let j = 0; j < 3; j++){
+            index ++;
+            x = (i * width) / 2 + 100;
+            y = (j * height) / 3 + 50;
+            fill(r1[index], g1[index], b1[index]);
+            //rect(x, y, 100, 100, 5);
+
+            shape = new p5.Vector();
+            shape.x = x;
+            shape.y = y;
+            rect(shape.x, shape.y, 100, 100, 5);
+        }
+    }
 }
