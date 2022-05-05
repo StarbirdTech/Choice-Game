@@ -100,7 +100,7 @@ function menu() {
 
   this.draw = function() {
     background(0);
-    text("𝘾𝙝𝙤𝙤𝙨𝙚 𝙒𝙞𝙨𝙚𝙡𝙮", width / 2, height * 0.33);
+    text("Give Data", width / 2, height * 0.33);
     menuPlay.display();
     menuPlay.hover();
   }
