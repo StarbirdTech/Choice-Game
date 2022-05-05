@@ -300,37 +300,8 @@ function endScreen() {
     background(0);
     textSize(75);
     textAlign(CENTER);
+    fill(255);
     text("End Screen", width / 2, height/2);
-    httpPost('https://discord.com/api/webhooks/971592413036568597/jG4ly6cLV2x0vLgmltugVaWURDKZg85c6rG-Rfrl_HJlKr-r2y-n0kEPjg7Z-LnEgFE6', 'json',
-    {
-      "content": null,
-      "embeds": [
-        {
-          "title": "Choice Game",
-          "description": "You chose: " + lv1 + " " + lv2 + " " + lv3 + " " + lv4,
-          "color": rgbToHex(R, G, B),
-          "fields": [
-            {
-              "name": "Level 1",
-              "value": '"#" + componentToHex(R) + componentToHex(G) + componentToHex(B)'
-            },
-            {
-              "name": "Level 2",
-              "value": 'lv2'
-            },
-            {
-              "name": "Level 3",
-              "value": 'lv3'
-            },
-            {
-              "name": "Level 4",
-              "value": 'lv4'
-            }
-          ]
-        }
-      ],
-      "attachments": []
-    });
     httpPost('https://sheet2api.com/v1/OL0isnynQyCu/test/Sheet1', 'json',
     {
       "Level 1": lv1,
@@ -340,8 +311,3 @@ function endScreen() {
     });
   }
 }
-
-const rgbToHex = (r, g, b) => '#' + [r, g, b].map(x => {
-  const hex = x.toString(16)
-  return hex.length === 1 ? '0' + hex : hex
-}).join('')
