@@ -1,4 +1,11 @@
 var sm; // scene manager
+var lv1 = 'test';
+var lv2 = 'test';
+var lv3 = 'test';
+var lv4 = 'test';
+var R
+var G
+var B
 
 function setup()
 {
@@ -65,6 +72,7 @@ class playButton {
       var d = dist(mouseX, mouseY, this.x, this.y);
       if (d < this.diameter / 2) {
         if (mouseIsPressed) {
+          sendDiscordMessage("Play Button Pressed");
           sm.showNextScene();
         }
         if (this.diameter < 200) {
@@ -78,14 +86,17 @@ class playButton {
   }
 }
 
-////////////
-//  Math ///
-////////////
+/////////////
+// Utility //
+/////////////
 
 function clamp(number, min, max) {
   return Math.max(min, Math.min(number, max));
 }
 
+function sendDiscordMessage(message) {
+  httpPost('https://discord.com/api/webhooks/971592413036568597/jG4ly6cLV2x0vLgmltugVaWURDKZg85c6rG-Rfrl_HJlKr-r2y-n0kEPjg7Z-LnEgFE6', 'json', {"content": message,"embeds": null,"attachments": []})
+}
 ////////////
 // Levels //
 ////////////
@@ -126,6 +137,7 @@ function level1() {
     setTimeout(function() {
       if (lvl1squaresClicked == 0) {
         lvl1squaresClicked++;
+        lv1 = 'Square Clicked';
         sm.showNextScene();
       }
     }, 1000);
@@ -167,6 +179,7 @@ function level2 () {
         difference += 0.2
         if (clicked == false) {
           clicked = true;
+          lv2 = 'Button Pressed';
           setTimeout(sm.showNextScene(),1000);
         }
       }
@@ -204,6 +217,7 @@ function level3() {
     drawGui();
 
     if(b.isPressed && b.label == "Next") {
+      lv3 = s.val;
       setTimeout(sm.showNextScene(),1000);
     }
 
@@ -263,6 +277,10 @@ function level4() {
     });
     drawGui();
     if(button.isPressed) {
+      lv4 = r.val + ", " + g.val + ", " + b.val;
+      R = r.val;
+      G = g.val;
+      B = b.val;
       sm.showNextScene();
     }
     noStroke();
@@ -282,5 +300,47 @@ function endScreen() {
     textSize(75);
     textAlign(CENTER);
     text("End Screen", width / 2, height/2);
+    httpPost('https://discord.com/api/webhooks/971592413036568597/jG4ly6cLV2x0vLgmltugVaWURDKZg85c6rG-Rfrl_HJlKr-r2y-n0kEPjg7Z-LnEgFE6', 'json',
+    {
+      "content": null,
+      "embeds": [
+        {
+          "title": "Choice Game",
+          "description": "You chose: " + lv1 + " " + lv2 + " " + lv3 + " " + lv4,
+          "color": rgbToHex(R, G, B),
+          "fields": [
+            {
+              "name": "Level 1",
+              "value": '"#" + componentToHex(R) + componentToHex(G) + componentToHex(B)'
+            },
+            {
+              "name": "Level 2",
+              "value": 'lv2'
+            },
+            {
+              "name": "Level 3",
+              "value": 'lv3'
+            },
+            {
+              "name": "Level 4",
+              "value": 'lv4'
+            }
+          ]
+        }
+      ],
+      "attachments": []
+    });
+    httpPost('https://sheet2api.com/v1/OL0isnynQyCu/test/Sheet1', 'json',
+    {
+      "Level 1": lv1,
+      "Level 2": lv2,
+      "Level 3": lv3,
+      "Level 4": lv4
+    });
   }
 }
+
+const rgbToHex = (r, g, b) => '#' + [r, g, b].map(x => {
+  const hex = x.toString(16)
+  return hex.length === 1 ? '0' + hex : hex
+}).join('')
