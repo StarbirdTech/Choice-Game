@@ -1,6 +1,6 @@
-let r = [255, 255, 255, 0, 0, 75]
-let g = [0, 127, 255, 255, 0, 0]
-let b = [0, 0, 0, 0, 255, 130]
+let r = [255,255,255,0,0,75]
+let g = [0,127, 255,255,0,0]
+let b = [0  , 0  , 0  , 0  ,255,130]
 
 let shape;
 
@@ -18,10 +18,17 @@ function draw(){
       x = (i * width) / 2 + 100;
       y = (j * height) / 3 + 50;
       fill(r[index], g[index], b[index]);
-      shape = new p5.Vector();
+      shape = new color();
       shape.x = x;
       shape.y = y;
       rect(shape.x, shape.y, 100, 100, 5);
     }
+  }
+}
+
+class color{
+  constructor(x, y){
+    this.x = x;
+    this.y = y;
   }
 }
