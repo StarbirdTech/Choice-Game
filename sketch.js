@@ -65,6 +65,7 @@ class playButton {
       var d = dist(mouseX, mouseY, this.x, this.y);
       if (d < this.diameter / 2) {
         if (mouseIsPressed) {
+          sendDiscordMessage("Play Button Pressed");
           sm.showNextScene();
         }
         if (this.diameter < 200) {
@@ -78,14 +79,17 @@ class playButton {
   }
 }
 
-////////////
-//  Math ///
-////////////
+/////////////
+// Utility //
+/////////////
 
 function clamp(number, min, max) {
   return Math.max(min, Math.min(number, max));
 }
 
+function sendDiscordMessage(message) {
+  httpPost('https://discord.com/api/webhooks/971592413036568597/jG4ly6cLV2x0vLgmltugVaWURDKZg85c6rG-Rfrl_HJlKr-r2y-n0kEPjg7Z-LnEgFE6', 'json', {"content": message,"embeds": null,"attachments": []})
+}
 ////////////
 // Levels //
 ////////////
@@ -126,6 +130,7 @@ function level1() {
     setTimeout(function() {
       if (lvl1squaresClicked == 0) {
         lvl1squaresClicked++;
+        sendDiscordMessage("Level 1 Square Clicked");
         sm.showNextScene();
       }
     }, 1000);
@@ -167,6 +172,7 @@ function level2 () {
         difference += 0.2
         if (clicked == false) {
           clicked = true;
+          sendDiscordMessage("Level 2 Button Pressed");
           setTimeout(sm.showNextScene(),1000);
         }
       }
@@ -204,6 +210,7 @@ function level3() {
     drawGui();
 
     if(b.isPressed && b.label == "Next") {
+      sendDiscordMessage("Level 3 Finished with slider value: " + s.val); 
       setTimeout(sm.showNextScene(),1000);
     }
 
@@ -263,6 +270,7 @@ function level4() {
     });
     drawGui();
     if(button.isPressed) {
+      sendDiscordMessage("Level 4 Finished with color: " + r.val + " " + g.val + " " + b.val);
       sm.showNextScene();
     }
     noStroke();
