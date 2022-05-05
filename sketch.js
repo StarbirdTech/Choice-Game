@@ -111,7 +111,8 @@ function menu() {
 
   this.draw = function() {
     background(0);
-    text("Give Data", width / 2, height * 0.33);
+    text("Randomness", width / 2, 120);
+
     menuPlay.display();
     menuPlay.hover();
   }
