@@ -122,17 +122,26 @@ function level1() {
   var clicked = 0;
 
   this.enter = function() {
-    background('#424549');
+    background(0)
+   // background('#424549');
     clicked = 0;
     stroke(0);
     strokeWeight(10);
     fill(color('#EF2E72'));
-    for (let squareY = 0; squareY <3; squareY += 1) {
-      for (let squareX = 0; squareX <3; squareX += 1) {
-        rect(rectSize * squareX, rectSize * squareY, rectSize * squareX, 
-          rectSize * squareY, 10);
+     push()
+    rectMode(CENTER)
+    translate(rectSize,rectSize)
+    scale(.5)
+    for (let squareY = 0; squareY <3; squareY++) {
+      for (let squareX = 0; squareX <3; squareX++) {
+        print(squareX)
+        rect(squareX * rectSize,
+           squareY * rectSize,
+           rectSize, 
+          rectSize, 10);
       }
     }
+    pop()
   }
 
   this.mousePressed = function() {
