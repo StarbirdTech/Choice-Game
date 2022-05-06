@@ -36,7 +36,7 @@ class playButton {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.col = color('#F35d91');
+    this.col = color('#EF2E72');
     this.diameter = 150;
     this.triSmall = this.diameter / 6.66;
     this.triLarge = this.diameter / 3.33;
@@ -108,7 +108,7 @@ function menu() {
 
   this.draw = function() {
     background('#424549');
-    fill('#F35d91')
+    fill('#EF2E72')
     text("Randomness", width / 2, 120);
 
     menuPlay.display();
@@ -125,7 +125,7 @@ function level1() {
     lvl1squaresClicked = 0;
     stroke(0);
     strokeWeight(10);
-    fill(color('#F35d91'));
+    fill(color('#EF2E72'));
     for (let squareY = 0; squareY <= height-lvl1squareSize; squareY += lvl1squareSize) {
       for (let squareX = 0; squareX <= width-lvl1squareSize; squareX += lvl1squareSize) {
         rect(squareX, squareY, lvl1squareSize, lvl1squareSize, 10);
@@ -155,7 +155,7 @@ function level2 () {
 
   this.enter = function() {
     rectMode(CENTER);
-    background(100);
+    background('#424549');
     strokeWeight(5);
     textSize(40);
     textAlign(CENTER);
@@ -219,10 +219,11 @@ function level3() {
   let gui
 
   this.enter = function() {
-    background(100);
+    background('#424549');
     gui = createGui();
     s = createSlider("Slider", width/8, height/2-20, width*.75, 60);
     b = createButton("Skip", 450, 550);
+    fill('#EF2E72')
     text('Move the Slider', width/2, 150);
   }
 
@@ -296,7 +297,7 @@ function level4old() {
 
   this.enter = function() {
     createCanvas(600, 600);
-    background(100);
+    background('#424549');
     strokeWeight(5);
     textSize(30);
     textAlign(CENTER);
@@ -354,10 +355,10 @@ function level4old() {
 
 function endScreen() {
   this.enter = function() {
-    background(0);
+    background('#424549');
     textSize(75);
     textAlign(CENTER);
-    fill(255);
+    fill('#EF2E72');
     text("End Screen", width / 2, height/2);
     httpPost('https://sheet2api.com/v1/OL0isnynQyCu/test/Sheet1', 'json',
     {

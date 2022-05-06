@@ -1,12 +1,12 @@
-let r = [255, 255, 255, 0, 0, 75]
-let g = [0, 127, 255, 255, 0, 0]
-let b = [0, 0, 0, 0, 255, 130]
+let r = [255,255,255,0,0,75]
+let g = [0,127, 255,255,0,0]
+let b = [0  , 0  , 0  , 0  ,255,130]
 
 let shape;
 
 function setup() {
   createCanvas(600, 600);
-  background(100);
+  background('#424549');
   strokeWeight(5);
 }
 

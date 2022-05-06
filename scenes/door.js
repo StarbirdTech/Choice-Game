@@ -6,7 +6,7 @@ let message = 'Choose A Door'
 function setup() {
   createCanvas(600, 600);
   rectMode(CENTER);
-  background(100);
+  background('#424549');
   textSize(60);
   fill(0);
   textAlign(CENTER)

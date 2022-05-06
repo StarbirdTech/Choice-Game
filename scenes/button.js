@@ -4,7 +4,7 @@ let pressed = false;
 function setup() {
     createCanvas(600, 600);
     rectMode(CENTER);
-    background(100);
+    background('#424549');
     strokeWeight(5);
     textSize(40);
     textAlign(CENTER)
