@@ -169,7 +169,7 @@ function level2 () {
       message = "WHY DID YOU \n PRESS THE BUTTON?";
     }
     if(b.isPressed) {
-      lv2 = 'Button Not Pressed';
+      lv2 = '0';
       sm.showNextScene();
     }
     background(100)
@@ -192,7 +192,7 @@ function level2 () {
         difference += 0.2
         if (clicked == false) {
           clicked = true;
-          lv2 = 'Button Pressed';
+          lv2 = '1';
         }
       }
     }
@@ -223,6 +223,7 @@ function level3() {
     gui = createGui();
     s = createSlider("Slider", width/8, height/2-20, width*.75, 60);
     b = createButton("Skip", 450, 550);
+    text('Move the Slider', width/2, 150);
   }
 
   this.draw = function() {
