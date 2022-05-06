@@ -353,6 +353,29 @@ function level4old() {
   }
 }
 
+function level5() {
+  let x = [0, 0];
+  let output = [0, 0];
+  let choice = 1;
+  let message = 'Choose A Door'
+
+  this.enter = function() {
+    background(100);
+    gui = createGui();
+    b = createButton("Skip", 450, 550);
+    createCanvas(600, 600);
+    background(100);
+    strokeWeight(5);
+  }
+  this.draw = function() {
+    drawGui();
+    if(b.isPressed) {
+      lv5 = '1';
+      setTimeout(sm.showNextScene(),1000);
+    }
+  }
+}
+
 function endScreen() {
   this.enter = function() {
     background('#424549');
