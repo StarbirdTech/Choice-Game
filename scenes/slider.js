@@ -7,7 +7,7 @@ function setup() {
 }
 
 function draw() {
-  background(100);
+  background('#424549');
   fill(200)
   textSize(200)
   strokeWeight(30);
