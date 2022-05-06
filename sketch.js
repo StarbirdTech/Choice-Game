@@ -9,23 +9,20 @@ var B
 
 function setup()
 {
-    createCanvas(600, 600);
-
-    sm = new SceneManager();
-
-    sm.addScene ( menu );
-    sm.addScene ( level1 );
-    sm.addScene ( level2 );
-    sm.addScene ( level3 );
-    sm.addScene ( level4 );
-    sm.addScene ( endScreen );
-
-    sm.showNextScene();
+  createCanvas(600, 600);
+  sm = new SceneManager();
+  sm.addScene ( menu );
+  sm.addScene ( level1 );
+  sm.addScene ( level2 );
+  sm.addScene ( level3 );
+  sm.addScene ( level4 );
+  sm.addScene ( endScreen );
+  sm.showNextScene();
 }
 
 function draw()
 {
-    sm.draw();
+  sm.draw();
 }
 
 function mousePressed() {sm.handleEvent("mousePressed")}
