@@ -241,26 +241,46 @@ function level3() {
 }
 
 function level4() {
+  let r4 = [255, 255, 255, 0, 0, 75]
+  let g4 = [0, 127, 255, 255, 0, 0]
+  let b4 = [0, 0, 0, 0, 255, 130]
+
+  let shape;
+  
   let gui
 
   this.enter = function() {
     background(100);
     gui = createGui();
-    s = createSlider("Slider", width/8, height/2-20, width*.75, 60);
     b = createButton("Skip", 450, 550);
-    text('Move the Slider', width/2, 150);
+    createCanvas(600, 600);
+    background(100);
+    strokeWeight(5);
+    rectMode(CENTER);
   }
 
   this.draw = function() {
     drawGui();
 
-    if(b.isPressed && b.label == "Next") {
-      lv4 = s.val;
-      setTimeout(sm.showNextScene(),1000);
+    let index = -1;
+    for(let i = 0; i < 2; i++){
+      for(let j = 0; j < 3; j++){
+        index ++;
+        x = (i * width) / 2 + 100;
+        y = (j * height) / 3 + 50;
+        fill(r4[index], g4[index], b4[index]);
+        shape = new color();
+        shape.x = x;
+        shape.y = y;
+        rect(shape.x, shape.y, 100, 100, 5);
+      }
     }
+  }
 
-    if (s.isChanged) {
-      b.label = "Next";
+  class color{
+    constructor(x, y){
+      this.x = x;
+      this.y = y;
     }
   }
 }
