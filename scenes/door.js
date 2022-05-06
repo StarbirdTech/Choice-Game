@@ -29,7 +29,7 @@ function cover() {
 }
 
 function mousePressed() {
-  fill(0);
+  fill(255);
   cover();
   if (choice == 1) {
     if (mouseX < 200) {
