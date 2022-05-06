@@ -11,7 +11,7 @@ function setup()
 {
   createCanvas(600, 600);
   sm = new SceneManager();
-  //sm.addScene ( menu );
+  sm.addScene ( menu );
   sm.addScene ( level1 );
   sm.addScene ( level2 );
   sm.addScene ( level3 );
@@ -118,8 +118,10 @@ function menu() {
 }
 
 function level1() {
-  var rectSize = 200;
+  var rectSize = 100;
   var clicked = 0;
+  var offsetX;
+  var offsetY;
   var checkBox = [];
   var gui;
 
@@ -129,16 +131,19 @@ function level1() {
     stroke(0);
     strokeWeight(10);
     fill(color('#EF2E72'));
-    
     push()
     rectMode(CENTER)
     translate(rectSize,rectSize)
     scale(.5)
     b = createButton("Skip", 450, 550);
+    offsetX = rectSize*3/2;
+    offsetY = rectSize*3/2;
     //t = createCheckbox("Toggle", 100, 50, 200, 50);
+    // get index of checkbox
+    
     for (let squareY = 0; squareY <3; squareY++) {
       for (let squareX = 0; squareX <3; squareX++) {
-        checkBox = createCheckbox("grid", squareX * rectSize, squareY * rectSize, rectSize, rectSize);
+        checkBox = createCheckbox("grid", squareX * rectSize+offsetX, squareY * rectSize + offsetY, rectSize, rectSize);
       }
     }
     pop()
@@ -147,16 +152,17 @@ function level1() {
   this.draw = function() {
     background('#424549');
     drawGui();
+    strokeWeight(10);
+    textSize(48);
+    textAlign(CENTER);
+    text("Chose a square", width/2, 100)
   }
 
   this.mousePressed = function() {
-    setTimeout(function() {
-      if (clicked == 0) {
-        clicked++;
-        lv1 = 'Square Clicked';
-        //sm.showNextScene();
-      }
-    }, 1000);
+    if (b.isPressed) {
+      lv1 = 'clicked';
+      sm.showNextScene();
+    }
   }
 }
 
