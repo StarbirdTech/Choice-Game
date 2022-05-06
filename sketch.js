@@ -248,7 +248,7 @@ function level4() {
 
   let shape;
   
-  let gui
+  let gui;
 
   this.enter = function() {
     background(100);
@@ -257,7 +257,6 @@ function level4() {
     createCanvas(600, 600);
     background(100);
     strokeWeight(5);
-    rectMode(CENTER);
   }
 
   this.draw = function() {
@@ -267,12 +266,13 @@ function level4() {
     for(let i = 0; i < 2; i++){
       for(let j = 0; j < 3; j++){
         index ++;
-        x = (i * width) / 2 + 100;
-        y = (j * height) / 3 + 50;
+        x = (i * width) / 2 + 150;
+        y = (j * (height-100)) / 3 + 125;
         fill(r4[index], g4[index], b4[index]);
         shape = new color();
         shape.x = x;
         shape.y = y;
+        rectMode(CENTER);
         rect(shape.x, shape.y, 100, 100, 5);
       }
     }
