@@ -68,7 +68,7 @@ class playButton {
       var d = dist(mouseX, mouseY, this.x, this.y);
       if (d < this.diameter / 2) {
         if (mouseIsPressed) {
-          sendDiscordMessage("Play Button Pressed");
+          //sendDiscordMessage("Play Button Pressed");
           sm.showNextScene();
         }
         if (this.diameter < 200) {
