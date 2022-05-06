@@ -11,7 +11,7 @@ function setup()
 {
   createCanvas(600, 600);
   sm = new SceneManager();
-  sm.addScene ( menu );
+  //sm.addScene ( menu );
   sm.addScene ( level1 );
   sm.addScene ( level2 );
   sm.addScene ( level3 );
@@ -120,28 +120,33 @@ function menu() {
 function level1() {
   var rectSize = 200;
   var clicked = 0;
+  var checkBox = [];
+  var gui;
 
   this.enter = function() {
-    background(0)
-   // background('#424549');
+    gui = createGui();
     clicked = 0;
     stroke(0);
     strokeWeight(10);
     fill(color('#EF2E72'));
-     push()
+    
+    push()
     rectMode(CENTER)
     translate(rectSize,rectSize)
     scale(.5)
+    b = createButton("Skip", 450, 550);
+    //t = createCheckbox("Toggle", 100, 50, 200, 50);
     for (let squareY = 0; squareY <3; squareY++) {
       for (let squareX = 0; squareX <3; squareX++) {
-        print(squareX)
-        rect(squareX * rectSize,
-           squareY * rectSize,
-           rectSize, 
-          rectSize, 10);
+        checkBox = createCheckbox("grid", squareX * rectSize, squareY * rectSize, rectSize, rectSize);
       }
     }
     pop()
+  }
+
+  this.draw = function() {
+    background('#424549');
+    drawGui();
   }
 
   this.mousePressed = function() {
@@ -149,7 +154,7 @@ function level1() {
       if (clicked == 0) {
         clicked++;
         lv1 = 'Square Clicked';
-        sm.showNextScene();
+        //sm.showNextScene();
       }
     }, 1000);
   }
