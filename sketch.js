@@ -118,26 +118,27 @@ function menu() {
 }
 
 function level1() {
-  var lvl1squareSize = 200;
-  var lvl1squaresClicked = 0;
+  var rectSize = 200;
+  var clicked = 0;
 
   this.enter = function() {
     background('#424549');
-    lvl1squaresClicked = 0;
+    clicked = 0;
     stroke(0);
     strokeWeight(10);
     fill(color('#EF2E72'));
-    for (let squareY = 0; squareY <= height-lvl1squareSize; squareY += lvl1squareSize) {
-      for (let squareX = 0; squareX <= width-lvl1squareSize; squareX += lvl1squareSize) {
-        rect(squareX, squareY, lvl1squareSize, lvl1squareSize, 10);
+    for (let squareY = 0; squareY <3; squareY += 1) {
+      for (let squareX = 0; squareX <3; squareX += 1) {
+        rect(rectSize * squareX, rectSize * squareY, rectSize * squareX, 
+          rectSize * squareY, 10);
       }
     }
   }
 
   this.mousePressed = function() {
     setTimeout(function() {
-      if (lvl1squaresClicked == 0) {
-        lvl1squaresClicked++;
+      if (clicked == 0) {
+        clicked++;
         lv1 = 'Square Clicked';
         sm.showNextScene();
       }
