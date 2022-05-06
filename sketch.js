@@ -42,8 +42,7 @@ class playButton {
     this.triLarge = this.diameter / 3.33;
 
     this.display = function () {
-      noStroke();
-      strokeWeight(10);
+      strokeWeight(5);
       fill(this.col);
       ellipse(this.x, this.y, this.diameter, this.diameter);
       fill(0);
@@ -104,11 +103,13 @@ function menu() {
     menuPlay = new playButton(width/2, height*.75);
     textSize(75);
     textAlign(CENTER);
+    stroke(0);
   }
 
   this.draw = function() {
     background('#424549');
     fill('#EF2E72')
+    strokeWeight(10);
     text("Randomness", width / 2, 120);
 
     menuPlay.display();
