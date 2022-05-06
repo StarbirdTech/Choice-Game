@@ -122,8 +122,9 @@ function level1() {
   this.enter = function() {
     background(0);
     lvl1squaresClicked = 0;
+    stroke(0);
     strokeWeight(10);
-    fill(100);
+    fill(color(255, 100, 76));
     for (let squareY = 0; squareY <= height-lvl1squareSize; squareY += lvl1squareSize) {
       for (let squareX = 0; squareX <= width-lvl1squareSize; squareX += lvl1squareSize) {
         rect(squareX, squareY, lvl1squareSize, lvl1squareSize, 10);
@@ -148,6 +149,8 @@ function level2 () {
   let difference = 0;
   let mouseDown = false;
   let clicked = false;
+  let gui;
+  let message = "Do Not Press the Button";
 
   this.enter = function() {
     rectMode(CENTER);
@@ -155,10 +158,21 @@ function level2 () {
     strokeWeight(5);
     textSize(40);
     textAlign(CENTER);
+    gui = createGui();
+    b = createButton("Skip", 450, 550);
   }
 
   this.draw = function() {
+    if (clicked) {
+      b.label = "Next";
+      message = "WHY DID YOU \n PRESS THE BUTTON?";
+    }
+    if(b.isPressed) {
+      lv2 = 'Button Not Pressed';
+      sm.showNextScene();
+    }
     background(100)
+    drawGui();
     fill(100)
     stroke(150)
     for (let i = 0; i < 50; i++) {
@@ -170,7 +184,7 @@ function level2 () {
       if(j>=buttonHight-1 | j<=4){stroke(0)} else {stroke(230, 0, 0)}
       ellipse(300, 340-j, 300, 75)
     }
-    text('Do Not Press This button', width/2, 100)
+    text(message, width/2, 100)
     if(mouseDown){
       if(difference <= 1){
         buttonHight = lerp(50, 30, difference)
@@ -178,7 +192,6 @@ function level2 () {
         if (clicked == false) {
           clicked = true;
           lv2 = 'Button Pressed';
-          setTimeout(sm.showNextScene(),1000);
         }
       }
     }
@@ -207,7 +220,7 @@ function level3() {
   this.enter = function() {
     background(100);
     gui = createGui();
-    s = createSlider("Slider", width/8, height/3, width*.75);
+    s = createSlider("Slider", width/8, height/2-20, width*.75, 60);
     b = createButton("Skip", 450, 550);
   }
 
