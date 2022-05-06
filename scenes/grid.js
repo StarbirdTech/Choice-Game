@@ -3,7 +3,7 @@ var lvl1squaresClicked = 0;
 
 function setup() {
   createCanvas(600, 600);
-  background(0);
+  background('#424549');
   lvl1squaresClicked = 0;
   strokeWeight(10);
   fill(100);
