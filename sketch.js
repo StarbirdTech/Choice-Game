@@ -36,7 +36,7 @@ class playButton {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.col = color(255, 100, 76);
+    this.col = color('#F35d91');
     this.diameter = 150;
     this.triSmall = this.diameter / 6.66;
     this.triLarge = this.diameter / 3.33;
@@ -107,7 +107,8 @@ function menu() {
   }
 
   this.draw = function() {
-    background(0);
+    background('#424549');
+    fill('#F35d91')
     text("Randomness", width / 2, 120);
 
     menuPlay.display();
@@ -120,11 +121,11 @@ function level1() {
   var lvl1squaresClicked = 0;
 
   this.enter = function() {
-    background(0);
+    background('#424549');
     lvl1squaresClicked = 0;
     stroke(0);
     strokeWeight(10);
-    fill(color(255, 100, 76));
+    fill(color('#F35d91'));
     for (let squareY = 0; squareY <= height-lvl1squareSize; squareY += lvl1squareSize) {
       for (let squareX = 0; squareX <= width-lvl1squareSize; squareX += lvl1squareSize) {
         rect(squareX, squareY, lvl1squareSize, lvl1squareSize, 10);
