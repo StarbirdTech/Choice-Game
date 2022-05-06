@@ -240,6 +240,31 @@ function level3() {
 }
 
 function level4() {
+  let gui
+
+  this.enter = function() {
+    background(100);
+    gui = createGui();
+    s = createSlider("Slider", width/8, height/2-20, width*.75, 60);
+    b = createButton("Skip", 450, 550);
+    text('Move the Slider', width/2, 150);
+  }
+
+  this.draw = function() {
+    drawGui();
+
+    if(b.isPressed && b.label == "Next") {
+      lv4 = s.val;
+      setTimeout(sm.showNextScene(),1000);
+    }
+
+    if (s.isChanged) {
+      b.label = "Next";
+    }
+  }
+}
+
+function level4old() {
   let gui;
   let r;
   let g;
