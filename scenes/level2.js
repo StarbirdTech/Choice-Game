@@ -23,6 +23,11 @@ function level2 () {
       message = "WHY DID YOU \n PRESS THE BUTTON?";
     }
     background(100)
+    if(b.isPressed) {
+      lv2 = '0';
+      sm.showNextScene();
+    }
+    background('#424549')
     drawGui();
     fill(100)
     stroke(150)

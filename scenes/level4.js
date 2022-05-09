@@ -7,11 +7,11 @@ function level4() {
   let button = createButton(" ", 450, 550);
 
   this.enter = function() {
-    background(100);
+    background('#424549');
     gui = createGui();
     button.create();
     createCanvas(600, 600);
-    background(100);
+    background('#424549');
     strokeWeight(5);
   }
 
