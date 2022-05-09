@@ -4,12 +4,11 @@ function level1() {
     var offsetX;
     var offsetY;
     var checkBox = [];
-    var gui;
-    var button;
+    var gui = createGui();
+    var button = new nextLevelButton(false);
+    var output = 0;
   
     this.enter = function() {
-      gui = createGui();
-      button = new nextLevelButton();
       button.create();
       clicked = 0;
       stroke(0);
@@ -42,8 +41,10 @@ function level1() {
       text("Chose a square", width/2, 100)
       for (let boxClicked = 0; boxClicked < checkBox.length; boxClicked++) {
         if(checkBox[boxClicked].isChanged) {
+          button.isAnswered();
           for (let i = 0; i < checkBox.length; i++) {
             if (i != boxClicked) {
+              output = boxClicked;
               checkBox[i].val = false;
             }
           }
@@ -51,5 +52,5 @@ function level1() {
       }
     }
     
-    this.mousePressed = function() {button.clicked();}
+    this.mousePressed = function() {button.clicked(output);}
   }

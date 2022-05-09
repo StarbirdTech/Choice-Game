@@ -6,25 +6,21 @@ function level2 () {
   let clicked = false;
   let gui;
   let message = "Do Not Press the Button";
+  let button = new nextLevelButton(true);
 
   this.enter = function() {
+    gui = createGui();
+    button.create();
     rectMode(CENTER);
     background('#424549');
     strokeWeight(5);
     textSize(40);
     textAlign(CENTER);
-    gui = createGui();
-    b = createButton("Skip", 450, 550);
   }
 
   this.draw = function() {
     if (clicked) {
-      b.label = "Next";
       message = "WHY DID YOU \n PRESS THE BUTTON?";
-    }
-    if(b.isPressed) {
-      lv2 = '0';
-      sm.showNextScene();
     }
     background(100)
     drawGui();
@@ -59,6 +55,8 @@ function level2 () {
   }
 
   this.mousePressed = function() {
+    button.isAnswered();
+    button.clicked();
     mouseDown = true;
     pressed = true;
   }
