@@ -5,9 +5,12 @@ function level1() {
     var offsetY;
     var checkBox = [];
     var gui;
+    var button;
   
     this.enter = function() {
       gui = createGui();
+      button = new nextLevelButton();
+      button.create();
       clicked = 0;
       stroke(0);
       strokeWeight(5);
@@ -16,7 +19,6 @@ function level1() {
       rectMode(CENTER)
       translate(rectSize,rectSize)
       scale(.5)
-      b = createButton("Skip", 450, 550);
       offsetX = rectSize*3/2;
       offsetY = rectSize*3/2;
       for (let squareY = 0; squareY <3; squareY++) {
@@ -48,17 +50,6 @@ function level1() {
         }
       }
     }
-  
-    this.mousePressed = function() {
-      if (b.isPressed) {
-        for (let i = 0; i < checkBox.length; i++) {
-          if (checkBox[i].val == true) {
-            lv1 = i;
-            print(lv1);
-            break;
-          }
-        }
-        sm.showNextScene();
-      }
-    }
+    
+    this.mousePressed = function() {button.clicked();}
   }
