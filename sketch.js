@@ -36,3 +36,15 @@ function clamp(number, min, max) {
 function sendDiscordMessage(message) {
   httpPost('https://discord.com/api/webhooks/971592413036568597/jG4ly6cLV2x0vLgmltugVaWURDKZg85c6rG-Rfrl_HJlKr-r2y-n0kEPjg7Z-LnEgFE6', 'json', {"content": message,"embeds": null,"attachments": []})
 }
+
+function nextLevelButton() {
+  let button;
+  this.create = function() {
+    button = createButton("Next", 450, 550);
+  }
+  this.clicked = function() {
+    if (button.isPressed) {
+      sm.showNextScene();
+    }
+  }
+}
