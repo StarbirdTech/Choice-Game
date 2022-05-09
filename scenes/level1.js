@@ -1,36 +1,34 @@
 //Grid
 
-function level1() {
-    var rectSize = 100;
-    var clicked = 0;
-    var offsetX;
-    var offsetY;
-    var checkBox = [];
-    var gui = createGui();
-    var button = new nextLevelButton(false);
-    var output = 0;
+class level {
+
+}
+
+class level1 extends level {
+  constructor() {
+    super(level);
+    this.rectSize = 100;
+    this.offsetX;
+    this.offsetY;
+    this.checkBox = [];
+    this.gui = createGui();
+    this.output = 0;
+  }
   
-    this.enter = function() {
-      button.create();
-      clicked = 0;
+    setup() {
       stroke(0);
       strokeWeight(5);
       fill(color('#EF2E72'));
-      push()
-      rectMode(CENTER)
-      translate(rectSize,rectSize)
-      scale(.5)
-      offsetX = rectSize*3/2;
-      offsetY = rectSize*3/2;
+      this.offsetX = this.rectSize*3/2;
+      this.offsetY = this.rectSize*3/2;
       for (let squareY = 0; squareY <3; squareY++) {
         for (let squareX = 0; squareX <3; squareX++) {
-          checkBox.push(createCheckbox("grid", squareX * rectSize+offsetX, squareY * rectSize + offsetY, rectSize, rectSize));
+          this.checkBox.push(createCheckbox("grid", squareX * this.rectSize+this.offsetX, squareY * this.rectSize + this.offsetY, this.rectSize, this.rectSize));
         }
       }
-      pop()
     }
   
-    this.draw = function() {
+    draw() {
       background('#424549');
       rectMode(CENTER);
       fill(0);
@@ -41,18 +39,15 @@ function level1() {
       textAlign(CENTER);
       fill(color('#EF2E72'));
       text("Chose a square", width/2, 100)
-      for (let boxClicked = 0; boxClicked < checkBox.length; boxClicked++) {
-        if(checkBox[boxClicked].isChanged) {
-          button.isAnswered();
-          for (let i = 0; i < checkBox.length; i++) {
+      for (let boxClicked = 0; boxClicked < this.checkBox.length; boxClicked++) {
+        if(this.checkBox[boxClicked].isChanged) {
+          for (let i = 0; i < this.checkBox.length; i++) {
             if (i != boxClicked) {
-              output = boxClicked;
-              checkBox[i].val = false;
+              this.output = this.boxClicked;
+              this.checkBox[i].val = false;
             }
           }
         }
       }
     }
-    
-    this.mousePressed = function() {button.clicked(output);}
   }
