@@ -26,7 +26,7 @@ function level2 () {
       lv2 = '0';
       sm.showNextScene();
     }
-    background(100)
+    background('#424549')
     drawGui();
     fill(100)
     stroke(150)

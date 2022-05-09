@@ -8,11 +8,11 @@ function level4() {
   let gui;
 
   this.enter = function() {
-    background(100);
+    background('#424549');
     gui = createGui();
     b = createButton("Skip", 450, 550);
     createCanvas(600, 600);
-    background(100);
+    background('#424549');
     strokeWeight(5);
   }
 

@@ -1,3 +1,5 @@
+//Grid
+
 function level1() {
     var rectSize = 100;
     var clicked = 0;
