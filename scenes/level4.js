@@ -23,11 +23,11 @@ function level4() {
         x = (i * width) / 2 + 150;
         y = (j * (height-100)) / 3 + 125;
         colorButton.push(createButton('test', x, y, 100, 100));
-        
+        /*
         colorButton[].setStyle({
           fillBg: "#FF0000"
         });
-        
+        */
         //colorButton.setStyle(fillbg, color(r4[index], g4[index], b4[index]));
       }
     }
