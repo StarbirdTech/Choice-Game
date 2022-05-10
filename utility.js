@@ -22,10 +22,11 @@ function nextLevelButton(allowSkip) {
   }
 
   this.clicked = function(dataToSend = null) {
+    currentlevel++;
     if (button.isPressed && (isAnswered || allowSkip)) {
       output.push(sm.currentScene + ": " + this.getDataToSend(dataToSend));
       print(output);
-      sm.showNextScene();
+      currentlevel++;
     }
   }
 

@@ -1,7 +1,9 @@
 //Grid
 
 class level {
-
+  constructor() {
+    this.nlb = new nextLevelButton(true);
+  }
 }
 
 class level1 extends level {
@@ -26,6 +28,7 @@ class level1 extends level {
           this.checkBox.push(createCheckbox("grid", squareX * this.rectSize+this.offsetX, squareY * this.rectSize + this.offsetY, this.rectSize, this.rectSize));
         }
       }
+      this.nlb.create();
     }
   
     draw() {
@@ -49,5 +52,9 @@ class level1 extends level {
           }
         }
       }
+    }
+
+    mousePressed() {
+      this.nlb.clicked(this.output);
     }
   }
