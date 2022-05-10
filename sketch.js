@@ -1,6 +1,5 @@
-var sm; // scene manager
 var lv1 = 'test';
-var lv2 = 'test';
+var lv2 = 0;
 var lv3 = 'test';
 var lv4 = 'test';
 var R
@@ -20,31 +19,32 @@ function setup()
   sm.showNextScene();
 }
 
-function draw() {sm.draw()}
-function mousePressed() {sm.handleEvent("mousePressed")}
-function mouseReleased() {sm.handleEvent("mouseReleased")}
-function keyPressed() {sm.handleEvent("keyPressed")}
+var output = [];
 
-/////////////
-// Utility //
-/////////////
+let currentlevel = 1;
 
-function clamp(number, min, max) {
-  return Math.max(min, Math.min(number, max));
+let l1
+
+function setup() {
+  createCanvas(600, 600);
+  l1 = new level1();
+  l1.setup();
 }
 
-function sendDiscordMessage(message) {
-  httpPost('https://discord.com/api/webhooks/971592413036568597/jG4ly6cLV2x0vLgmltugVaWURDKZg85c6rG-Rfrl_HJlKr-r2y-n0kEPjg7Z-LnEgFE6', 'json', {"content": message,"embeds": null,"attachments": []})
+function draw() {
+  switch(currentlevel) {
+    case 1:
+      l1.draw();
+      break;
+    case 2:
+      l2.draw();
+      break;
+    case 3:
+      l3.draw();
+      break;
+  }
 }
 
-function nextLevelButton() {
-  let button;
-  this.create = function() {
-    button = createButton("Next", 450, 550);
-  }
-  this.clicked = function() {
-    if (button.isPressed) {
-      sm.showNextScene();
-    }
-  }
+function mousePressed() {
+  l1.mousePressed();
 }

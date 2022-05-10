@@ -2,19 +2,18 @@ function level4() {
   let r4 = [255, 255, 255, 0, 0, 75]
   let g4 = [0, 127, 255, 255, 0, 0]
   let b4 = [0, 0, 0, 0, 255, 130]
-
-  let shape;
   
   let gui;
+  let button = createButton(" ", 450, 550);
 
   let colorButton = [];
 
   this.enter = function() {
-    background(100);
+    background('#424549');
     gui = createGui();
-    b = createButton("Skip", 450, 550);
+    button.create();
     createCanvas(600, 600);
-    background(100);
+    background('#424549');
     strokeWeight(5);
     let index = 0;
     for(let i = 0; i < 2; i++){
@@ -22,6 +21,7 @@ function level4() {
         index ++;
         x = (i * width) / 2 + 150;
         y = (j * (height-100)) / 3 + 125;
+
         colorButton.push(createButton('test', x, y, 100, 100));
         /*
         colorButton[].setStyle({
@@ -41,6 +41,13 @@ function level4() {
     constructor(x, y){
       this.x = x;
       this.y = y;
+    }
+  }
+
+        fill(r4[index], g4[index], b4[index]);
+        rectMode(CENTER);
+        rect(x, y, 100, 100, 5);
+      }
     }
   }
 }
